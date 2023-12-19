@@ -28,12 +28,14 @@ public class App {
             int boxSize = readInt(stream);
             String boxType = readBoxType(stream);
             String indentation = "    ".repeat(depth);
-            System.out.println(indentation + "Box ID: " + boxType + " of size " + boxSize);
             if ("mdat".equals(boxType)) {
+                System.out.println("Box ID: " + boxType + " of size " + boxSize);
                 parseMdatBox(stream);
             } else if ("moof".equals(boxType) || "traf".equals(boxType)) {
+                System.out.println(indentation + "Box ID: " + boxType + " of size " + boxSize);
                 parseFile(stream, depth + 1);
             } else {
+                System.out.println(indentation + "Box ID: " + boxType + " of size " + boxSize);
                 stream.skip(boxSize - 8);
             }
         }
