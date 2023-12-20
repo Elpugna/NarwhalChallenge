@@ -1,9 +1,6 @@
 package parser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class App {
     //Modify this value to match the file when executing (Path from project's root)
@@ -74,28 +71,12 @@ public class App {
      * @param stream - stream of bytes of the file.
      * @throws IOException
      */
-    private static void parseMdatBox(InputStream stream, int boxSize) throws IOException {
-        int mdatInfoSize = boxSize - 8;
-        byte[] buffer = new byte[1024];
-
-        int totalBytesRead = 0;
-
+    private static void parseMdatBox(InputStream stream, long boxSize) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        String line;
         System.out.println("Mdat content:");
-
-        while (totalBytesRead < mdatInfoSize) {
-            int bytesToRead = Math.min(buffer.length, mdatInfoSize - totalBytesRead);
-            int bytesRead = stream.read(buffer, 0, bytesToRead);
-
-            if (bytesRead == -1) {
-                break;
-            }
-            String data = new String(buffer);
-            if (bytesToRead < buffer.length) {
-                data = data.substring(0, bytesRead);
-            }
-            System.out.print(data);
-
-            totalBytesRead += bytesRead;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
         }
     }
 }
