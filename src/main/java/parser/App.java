@@ -21,14 +21,14 @@ public class App {
      * @param depth - the depth of the boxes
      * @throws IOException - if the stream has been closed. See FileInputStream.available() reference.
      */
-    private static void parseFile(FileInputStream stream, int depth) throws IOException{
+    private static void parseFile(FileInputStream stream, int depth) throws IOException {
         while (stream.available() > 0) {
             int boxSize = readInt(stream);
             String boxType = readBoxType(stream);
             String indentation = "    ".repeat(depth);
             if ("mdat".equals(boxType)) {
                 System.out.println("Box ID: " + boxType + " of size " + boxSize);
-                parseMdatBox(stream, boxSize);
+                parseMdatBox(stream);
             } else if ("moof".equals(boxType) || "traf".equals(boxType)) {
                 System.out.println(indentation + "Box ID: " + boxType + " of size " + boxSize);
                 parseFile(stream, depth + 1);
@@ -71,7 +71,7 @@ public class App {
      * @param stream - stream of bytes of the file.
      * @throws IOException
      */
-    private static void parseMdatBox(InputStream stream, long boxSize) throws IOException {
+    private static void parseMdatBox(InputStream stream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         String line;
         System.out.println("Mdat content:");
