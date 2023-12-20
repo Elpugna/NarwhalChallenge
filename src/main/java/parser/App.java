@@ -16,8 +16,8 @@ public class App {
     }
 
     /**
-     * The parseFile Function parses the file and reads the size and type ob boxes on it.
-     * @param stream - the stream of type FileInputStream
+     * The parseFile method parses the file and reads the size and type of boxes in it.
+     * @param stream - the FileInputStream stream
      * @param depth - the depth of the boxes
      * @throws IOException - if the stream has been closed. See FileInputStream.available() reference.
      */
@@ -34,17 +34,17 @@ public class App {
                 parseFile(stream, depth + 1);
             } else {
                 System.out.println(indentation + "Box ID: " + boxType + " of size " + boxSize);
-                stream.skip(boxSize - 8);
+                stream.skip(boxSize - 8L);
             }
         }
     }
 
 
     /**
-     * Reads 4 bytes of the stream that determines the box size and returns it
+     * Reads 4 bytes from the stream to determine the box size and returns it.
      *
-     * @param stream - the stream of bytes of the mpeg file
-     * @return - int representing the box size
+     * @param stream - the stream of bytes of the MPEG file
+     * @return - an integer representing the box size
      * @throws IOException
      */
     private static int readInt(FileInputStream stream) throws IOException {
@@ -55,8 +55,8 @@ public class App {
     }
 
     /**
-     * Readt 4 bytes of the stream that determines the box type and returns it
-     * @param stream - the stream of bytes of the mpeg file
+     * Reads 4 bytes from the stream to determine the box type and returns it.
+     * @param stream - the stream of bytes of the MPEG file
      * @return - String representing the box type
      * @throws IOException
      */
@@ -67,8 +67,8 @@ public class App {
     }
 
     /**
-     * This function prints to console the content of the mdat box.
-     * @param stream - stream of bytes of the file.
+     * This method prints the content of the MDAT box to the console.
+     * @param stream - the byte stream of the file
      * @throws IOException
      */
     private static void parseMdatBox(InputStream stream) throws IOException {
